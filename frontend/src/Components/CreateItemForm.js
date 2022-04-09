@@ -1,8 +1,15 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Button,Container,Grid,TextField} from '@mui/material';
 
 
 export default function CreateItemForm(props){
+    const [newToDoName,setNewToDoName] = useState('');
+
+    const handleChange = (event) =>{
+        setNewToDoName(event.target.value);
+    }
+
+
  return(
     <Container style={{backgroundColor:'yellow'}}>
         <Grid container>
@@ -10,8 +17,8 @@ export default function CreateItemForm(props){
                 <Grid container>
                     <Grid item xs={3}/>
                     <Grid item xs={6} align="center">
-                        <TextField style={{width:'100%'}} id="standard-basic" label="New to-do " variant="standard" />
-                        <Button variant='outlined'>Add</Button>
+                        <TextField value={newToDoName} style={{width:'100%'}} id="standard-basic" label="New to-do " variant="standard" onChange={(event)=>{handleChange(event)}} />
+                        <Button variant='outlined' onClick={()=>{props.createToDoItem(newToDoName); setNewToDoName('')}}>Add</Button>
                     </Grid>
                 <Grid item xs={3}/>
                 </Grid>
