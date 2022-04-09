@@ -9,12 +9,8 @@ import FolderIcon from '@mui/icons-material/Folder';
 import DeleteIcon from '@mui/icons-material/Delete';
 export default function ToDoListItem (props){
 
-    return <ListItem
-            secondaryAction={
-                <IconButton edge="end" aria-label="delete">
-                    <DeleteIcon />
-                </IconButton>}
-            >
+    return <ListItem secondaryAction={
+            <IconButton edge="end" aria-label="delete"> <DeleteIcon /> </IconButton>}>
             <ListItemAvatar>
                 <Avatar>
                     <FolderIcon />
