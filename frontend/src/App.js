@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import ToDoList from './Components/ToDoList'
 import CreateItemForm from './Components/CreateItemForm'
 import {Container,Grid} from '@mui/material';
-
+import './App.css';
 export default function App() {
   const [todoItems, setTodoItems] = useState({});
   
@@ -23,16 +23,22 @@ export default function App() {
     
   } 
   return (
-      <Container /*style={{backgroundColor:'red'}}*/>
-        <Grid container /*style={{backgroundColor:'blue'}}*/>
-
-         <Grid item xs={12}>
-            <CreateItemForm createToDoItem={createToDoItem}/>
+      <Container>
+        <Grid container>
+         <Grid item xs={12} >
+           <Grid container >
+            <Grid item xs={2}>
+            </Grid>
+            <Grid item xs={8} style={{backgroundColor:'white'}}>
+              <CreateItemForm createToDoItem={createToDoItem} />
+            </Grid>
+            <Grid item xs={2}></Grid>
+           </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Grid container >
+          <Grid item xs={12} >
+            <Grid container  >
               <Grid item xs={2}/>
-              <Grid item xs={8}>
+              <Grid item xs={8} style={{backgroundColor:'white'}}>
                <ToDoList markToDoItem={markToDoItem} deleteToDoItem={deleteToDoItem}>{Object.values(todoItems)}</ToDoList>
               </Grid>
               <Grid item xs={2}/>

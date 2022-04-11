@@ -20,7 +20,7 @@ export default function CreateItemForm(props){
                 <Grid container>
                     <Grid item xs={3}/>
                     <Grid item xs={6} align="center">
-                        <TextField value={newToDoName} style={{width:'100%'}} id="standard-basic" label="New to-do " variant="standard" onChange={(event)=>{handleChange(event)}} />
+                        <TextField value={newToDoName} style={{width:'100%', marginBottom:10}} id="standard-basic" label="New to-do " variant="standard" onChange={(event)=>{handleChange(event)}}/>
                         <Button variant='outlined' onClick={()=>{handleClick(newToDoName)}}>Add</Button>
                     </Grid>
                 <Grid item xs={3}/>
