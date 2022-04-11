@@ -4,26 +4,39 @@ import ToDoListItem from './Components/TodoListItem'
 import CreateItemForm from './Components/CreateItemForm'
 import {Container,Grid} from '@mui/material';
 
+/*
+todoitem : {
+  name: string,
+  id: string (name),
+  isCompleted : bool
+}
 
+
+
+*/
 
 export default function App() {
-  const [todoItems, setTodoItems] = useState([]);
-
+  const [todoItems, setTodoItems] = useState({});
+  
   const createToDoItem = (itemName)=>{
-    const newToDo = (<ToDoListItem itemName={itemName}/>);
-    setTodoItems((todoItems) => [...todoItems,newToDo]);
-  }
+    const newToDo = {itemName : itemName,isCompleted : false};
+    setTodoItems((todoItems) => ({...todoItems, [itemName] : newToDo}));
+  };
+
+ 
   return (
-      <Container style={{backgroundColor:'red'}}>
-        <Grid container style={{backgroundColor:'blue'}}>
-          <Grid item xs={12}>
+
+      <Container /*style={{backgroundColor:'red'}}*/>
+        <Grid container /*style={{backgroundColor:'blue'}}*/>
+
+         <Grid item xs={12}>
             <CreateItemForm createToDoItem={createToDoItem}/>
           </Grid>
           <Grid item xs={12}>
-            <Grid container>
+            <Grid container >
               <Grid item xs={2}/>
               <Grid item xs={8}>
-                <ToDoList > {todoItems} </ToDoList>
+               <ToDoList>{Object.values(todoItems)}</ToDoList>
               </Grid>
               <Grid item xs={2}/>
             </Grid>

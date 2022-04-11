@@ -4,14 +4,13 @@ import {Button,Container,Grid,TextField} from '@mui/material';
 
 export default function CreateItemForm(props){
     const [newToDoName,setNewToDoName] = useState('');
-
     const handleChange = (event) =>{
         setNewToDoName(event.target.value);
     }
 
 
  return(
-    <Container style={{backgroundColor:'yellow'}}>
+    <Container style={{position:'sticky'}} /*style={{backgroundColor:'yellow'}}*/>
         <Grid container>
             <Grid item xs={12}>
                 <Grid container>
