@@ -23,6 +23,13 @@ export default function App() {
     setTodoItems((todoItems) => ({...todoItems, [itemName] : newToDo}));
   };
 
+  const markToDoItem = (itemName) =>{
+    const newIsCompleted = !todoItems[itemName].isCompleted;
+    
+    setTodoItems((todoItems) => ({...todoItems, [itemName] : {...todoItems[itemName], isCompleted:newIsCompleted }}))
+    console.log(todoItems);
+  }
+
  
   return (
 
@@ -36,7 +43,7 @@ export default function App() {
             <Grid container >
               <Grid item xs={2}/>
               <Grid item xs={8}>
-               <ToDoList>{Object.values(todoItems)}</ToDoList>
+               <ToDoList markToDoItem={markToDoItem}>{Object.values(todoItems)}</ToDoList>
               </Grid>
               <Grid item xs={2}/>
             </Grid>

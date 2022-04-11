@@ -11,7 +11,7 @@ export default function ToDoListItem (props){
 
     return <ListItem secondaryAction={
             <IconButton edge="end" aria-label="delete"> <DeleteIcon /> </IconButton>}>
-            <ListItemAvatar onClick={()=>{props.markToDoItem()}}>
+            <ListItemAvatar onClick={()=>{props.markToDoItem(props.itemName)}}>
                 <Avatar>
                     {props.isCompleted === true ? <CheckBoxOutlinedIcon/> : <CheckBoxOutlineBlankOutlinedIcon/> }
                 </Avatar>
