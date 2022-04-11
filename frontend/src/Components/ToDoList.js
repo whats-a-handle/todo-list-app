@@ -9,7 +9,7 @@ return (
   <Grid item xs={12} /*style={{backgroundColor:'green'}}*/>
     <Typography variant="h6" component="div">{props.toDoListName}</Typography>
     <List>{props.children.map((item)=>{
-      return <ToDoListItem markToDoItem={props.markToDoItem} key={item.itemName} itemName={item.itemName} isCompleted={item.isCompleted} ></ToDoListItem>
+      return <ToDoListItem markToDoItem={props.markToDoItem} deleteToDoItem={props.deleteToDoItem} key={item.itemName} itemName={item.itemName} isCompleted={item.isCompleted} ></ToDoListItem>
     })}</List>
   </Grid>
 </Grid>)

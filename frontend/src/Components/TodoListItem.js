@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export default function ToDoListItem (props){
 
     return <ListItem secondaryAction={
-            <IconButton edge="end" aria-label="delete"> <DeleteIcon /> </IconButton>}>
+            <IconButton edge="end" aria-label="delete" onClick={()=>{props.deleteToDoItem(props.itemName)}}> <DeleteIcon/> </IconButton>}>
             <ListItemAvatar onClick={()=>{props.markToDoItem(props.itemName)}}>
                 <Avatar>
                     {props.isCompleted === true ? <CheckBoxOutlinedIcon/> : <CheckBoxOutlineBlankOutlinedIcon/> }

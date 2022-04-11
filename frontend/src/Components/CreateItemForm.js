@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react';
 import {Button,Container,Grid,TextField} from '@mui/material';
 
 
@@ -7,10 +7,8 @@ export default function CreateItemForm(props){
     const handleChange = (event) =>{
         setNewToDoName(event.target.value);
     }
-
-
  return(
-    <Container style={{position:'sticky'}} /*style={{backgroundColor:'yellow'}}*/>
+    <Container /*style={{backgroundColor:'yellow'}}*/>
         <Grid container>
             <Grid item xs={12}>
                 <Grid container>
