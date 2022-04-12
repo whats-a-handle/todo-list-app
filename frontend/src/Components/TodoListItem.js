@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState} from 'react';
+import TextField from '@mui/material/TextField';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
@@ -8,8 +10,9 @@ import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlin
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDrag, useDrop } from "react-dnd";
-
+import SaveIcon from '@mui/icons-material/Save';
 export default function ToDoListItem (props){
+  const [isEditMode, setIsEditMode] = useState(false);
     const ref = React.useRef(null);
     const type = 'ToDoListItem';
     // useDrop hook is responsible for handling whether any item gets hovered or dropped on the element
@@ -58,9 +61,18 @@ export default function ToDoListItem (props){
                     {props.isCompleted === true ? <CheckBoxOutlinedIcon/> : <CheckBoxOutlineBlankOutlinedIcon/> }
                 </Avatar>
             </ListItemAvatar>
-            <ListItemText
+            {isEditMode === false? 
+            <ListItemText onClick={()=>{setIsEditMode(true)}}
                 primary={props.itemName} secondary={props.itemBody}
             />
+            :(<React.Fragment>
+            <TextField value={props.itemName}></TextField>
+            <IconButton><SaveIcon onClick={()=>{setIsEditMode(false)}}/></IconButton>
+            </React.Fragment>
+            )
+            }
+            
+            
          </ListItem>
 
 }

@@ -33,7 +33,8 @@ export default function App() {
 
   const moveItem = (itemName,dragIndex) => {
     setTodoItems((todoItems)=>({...todoItems,[itemName] : {...todoItems[itemName], index:dragIndex} }));
-};
+
+  };
 
   const sortItems = (items)=>{
     return items.sort((a, b) => a.index - b.index);

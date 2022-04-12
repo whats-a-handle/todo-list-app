@@ -12,7 +12,6 @@ return (
   <Grid item xs={12} /*style={{backgroundColor:'green'}}*/>
     <Typography variant="h6" component="div">{props.toDoListName}</Typography>
     <DndProvider backend={HTML5Backend}>
-      
     <List>{props.children.map((item,index)=>{
       return <ToDoListItem markToDoItem={props.markToDoItem} 
       deleteToDoItem={props.deleteToDoItem} 
