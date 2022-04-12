@@ -7,7 +7,6 @@ import { DndProvider } from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 
 export default function ToDoList(props){
-  console.log(props);
 return (
 <Grid container>
   <Grid item xs={12} /*style={{backgroundColor:'green'}}*/>

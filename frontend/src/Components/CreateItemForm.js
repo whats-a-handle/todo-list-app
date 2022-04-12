@@ -10,7 +10,8 @@ export default function CreateItemForm(props){
 
     const handleClick = (newToDoName)=>{
         if(newToDoName !== null && newToDoName.trim()){
-            props.createToDoItem(newToDoName); setNewToDoName('')
+            props.createToDoItem(newToDoName); 
+            setNewToDoName('');
         }
     }
  return(
