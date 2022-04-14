@@ -36,7 +36,6 @@ export default function App() {
   };
 
   const sortItems = (items)=>{
-    console.log(items)
     return items.sort((a, b) => a.position - b.position);
   }
 

@@ -74,16 +74,16 @@ export default function ToDoListItem (props){
     return <ListItem  ref={ref} style={{opacity: isDragging ? 0 : 1}} secondaryAction={
             <IconButton  style={{color:'red'}} edge="end" aria-label="delete" onClick={()=>{props.deleteToDoItem(todoItemName)}}> <DeleteIcon/> </IconButton>}>
             <ListItemAvatar onClick={()=>{props.markToDoItem(todoItemName)}}>
-                <Avatar style={{backgroundColor: props.isCompleted === true ? 'green' : '#5acbed'}}>
-                    {props.isCompleted === true ? <CheckBoxOutlinedIcon style={{backgroundColor:'green'}}/> : <CheckBoxOutlineBlankOutlinedIcon/> }
+                <Avatar style={{backgroundColor: props.isCompleted ? 'green' : '#5acbed'}}>
+                    {props.isCompleted ? <CheckBoxOutlinedIcon style={{backgroundColor:'green'}}/> : <CheckBoxOutlineBlankOutlinedIcon/> }
                 </Avatar>
             </ListItemAvatar>
             {isEditMode === false? 
-            <ListItemText onClick={()=>{setIsEditMode(true)}} primary={todoItemName}/>
+            <ListItemText style={{wordWrap:'break-word', textDecoration: props.isCompleted ? 'line-through': 'none'}} onClick={()=>{setIsEditMode(true)}} primary={todoItemName}/>
             :
             (
             <React.Fragment>
-              <TextField value={todoItemName} onChange={(event)=>{handleChange(event)}} onKeyDown={(event)=>{handleKeyPress(event.key, props.itemName, todoItemName)}}></TextField>
+              <TextField style={{width:'90%'}}value={todoItemName} onChange={(event)=>{handleChange(event)}} onKeyDown={(event)=>{handleKeyPress(event.key, props.itemName, todoItemName)}}></TextField>
               <IconButton style={{color:'green'}} onClick={()=>{saveChange(props.itemName,todoItemName)}}><SaveIcon/></IconButton>
             </React.Fragment>
             )
