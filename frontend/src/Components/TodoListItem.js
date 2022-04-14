@@ -13,8 +13,24 @@ import { useDrag, useDrop } from "react-dnd";
 import SaveIcon from '@mui/icons-material/Save';
 export default function ToDoListItem (props){
   const [isEditMode, setIsEditMode] = useState(false);
-    const ref = React.useRef(null);
-    const type = 'ToDoListItem';
+  const [todoItemName, setTodoItemName] = useState(props.itemName);
+  const ref = React.useRef(null);
+  const type = 'ToDoListItem';
+  const handleChange = (event) =>{
+    setTodoItemName(event.target.value);
+  }
+  const saveChange = (oldItemName,newItemName) =>{
+    props.renameTodoItem(oldItemName,newItemName); 
+    setIsEditMode(false);
+    
+  }
+
+  const handleKeyPress = (key, oldItemName,newItemName)=>{
+    if(key === 'Enter'){
+      saveChange(oldItemName,newItemName);
+    }
+}
+
     // useDrop hook is responsible for handling whether any item gets hovered or dropped on the element
   // useDrop hook is responsible for handling whether any item gets hovered or dropped on the element
   const [, drop] = useDrop({
@@ -24,13 +40,13 @@ export default function ToDoListItem (props){
         if(!ref.current){
             return;
         }
-        const dragIndex = item.index;
-        const hoverIndex = props.index;
-        if(dragIndex === hoverIndex){
+        const dragPosition = item.position;
+        const hoverPosition = props.position;
+        if(dragPosition === hoverPosition){
             return;
         }
-        props.moveItem(props.itemName,dragIndex,hoverIndex);
-        item.index=hoverIndex;
+        props.moveItem(props.itemName,dragPosition,hoverPosition);
+        item.position=hoverPosition;
     }
   });
 
@@ -39,7 +55,7 @@ export default function ToDoListItem (props){
     // what type of item this to determine if a drop target accepts it
     type: type,
     // data of the item to be available to the drop methods
-    item: { id: props.id, index:props.index },
+    item: { id: props.id, position:props.position },
     // method to collect additional data for drop handling like whether is currently being dragged
     collect: (monitor) => {
       return {
@@ -54,25 +70,24 @@ export default function ToDoListItem (props){
   */
     drag(drop(ref));
 
+  
     return <ListItem  ref={ref} style={{opacity: isDragging ? 0 : 1}} secondaryAction={
-            <IconButton edge="end" aria-label="delete" onClick={()=>{props.deleteToDoItem(props.itemName)}}> <DeleteIcon/> </IconButton>}>
-            <ListItemAvatar onClick={()=>{props.markToDoItem(props.itemName)}}>
-                <Avatar>
-                    {props.isCompleted === true ? <CheckBoxOutlinedIcon/> : <CheckBoxOutlineBlankOutlinedIcon/> }
+            <IconButton  style={{color:'red'}} edge="end" aria-label="delete" onClick={()=>{props.deleteToDoItem(todoItemName)}}> <DeleteIcon/> </IconButton>}>
+            <ListItemAvatar onClick={()=>{props.markToDoItem(todoItemName)}}>
+                <Avatar style={{backgroundColor: props.isCompleted === true ? 'green' : '#5acbed'}}>
+                    {props.isCompleted === true ? <CheckBoxOutlinedIcon style={{backgroundColor:'green'}}/> : <CheckBoxOutlineBlankOutlinedIcon/> }
                 </Avatar>
             </ListItemAvatar>
             {isEditMode === false? 
-            <ListItemText onClick={()=>{setIsEditMode(true)}}
-                primary={props.itemName} secondary={props.itemBody}
-            />
-            :(<React.Fragment>
-            <TextField value={props.itemName}></TextField>
-            <IconButton><SaveIcon onClick={()=>{setIsEditMode(false)}}/></IconButton>
+            <ListItemText onClick={()=>{setIsEditMode(true)}} primary={todoItemName}/>
+            :
+            (
+            <React.Fragment>
+              <TextField value={todoItemName} onChange={(event)=>{handleChange(event)}} onKeyDown={(event)=>{handleKeyPress(event.key, props.itemName, todoItemName)}}></TextField>
+              <IconButton style={{color:'green'}} onClick={()=>{saveChange(props.itemName,todoItemName)}}><SaveIcon/></IconButton>
             </React.Fragment>
             )
             }
-            
-            
          </ListItem>
 
 }

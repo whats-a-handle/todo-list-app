@@ -8,14 +8,13 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 
 export default function ToDoList(props){
 return (
-<Grid container>
+<Grid container style={{marginTop:10}}>
   <Grid item xs={12} /*style={{backgroundColor:'green'}}*/>
-    <Typography variant="h6" component="div">{props.toDoListName}</Typography>
     <DndProvider backend={HTML5Backend}>
     <List>{props.children.map((item,index)=>{
-      return <ToDoListItem markToDoItem={props.markToDoItem} 
+      return <ToDoListItem markToDoItem={props.markToDoItem} renameTodoItem={props.renameTodoItem}
       deleteToDoItem={props.deleteToDoItem} 
-      key={item.itemName} index={index} itemName={item.itemName} 
+      key={item.itemName} position={index} itemName={item.itemName} 
       isCompleted={item.isCompleted} moveItem={props.moveItem}>
       </ToDoListItem>
     })}</List>

@@ -11,11 +11,11 @@ export default function App() {
     const newToDo = {
       itemName : itemName,
       isCompleted : false,
-      index : 0, 
+      position : 0, 
     };
 
     if(todoItemsOrderedList.length > 0){
-      newToDo.index = todoItemsOrderedList[todoItemsOrderedList.length-1].index+1//used for positioning
+      newToDo.position = todoItemsOrderedList[todoItemsOrderedList.length-1].position+1//used for positioning
     }
     setTodoItems((todoItems) => ({...todoItems, [itemName] : newToDo}));
   };
@@ -31,13 +31,22 @@ export default function App() {
     setTodoItems(newToDoItems)
   } 
 
-  const moveItem = (itemName,dragIndex) => {
-    setTodoItems((todoItems)=>({...todoItems,[itemName] : {...todoItems[itemName], index:dragIndex} }));
-
+  const moveItem = (itemName,dragPosition) => {
+    setTodoItems((todoItems)=>({...todoItems,[itemName] : {...todoItems[itemName], position:dragPosition} }));
   };
 
   const sortItems = (items)=>{
-    return items.sort((a, b) => a.index - b.index);
+    return items.sort((a, b) => a.position - b.position);
+  }
+
+  const renameTodoItem = (oldItemName,newItemName)=>{
+    if(!(newItemName in todoItems)){
+      const updatedItems = {...todoItems};
+      const renamedItem = {...todoItems[oldItemName]};
+      delete updatedItems[oldItemName];
+      renamedItem.itemName = newItemName;
+      setTodoItems({...updatedItems, [newItemName] :{...renamedItem}});
+    }
   }
 
 useEffect(()=>{
@@ -47,7 +56,7 @@ useEffect(()=>{
   return (
       <Container>
         <Grid container>
-         <Grid item xs={12} >
+         <Grid item xs={12} style={{marginTop:('5%')}}>
            <Grid container >
             <Grid item xs={2}>
             </Grid>
@@ -61,7 +70,7 @@ useEffect(()=>{
             <Grid container  >
               <Grid item xs={2}/>
               <Grid item xs={8} style={{backgroundColor:'white'}}>
-               <ToDoList markToDoItem={markToDoItem} deleteToDoItem={deleteToDoItem} moveItem={moveItem}>{todoItemsOrderedList}</ToDoList>
+               <ToDoList markToDoItem={markToDoItem} renameTodoItem={renameTodoItem} deleteToDoItem={deleteToDoItem} moveItem={moveItem}>{todoItemsOrderedList}</ToDoList>
               </Grid>
               <Grid item xs={2}/>
             </Grid>

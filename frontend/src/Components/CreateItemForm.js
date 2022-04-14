@@ -8,9 +8,16 @@ export default function CreateItemForm(props){
         setNewToDoName(event.target.value);
     }
 
-    const handleClick = (newToDoName)=>{
-        if(newToDoName !== null && newToDoName.trim()){
-            props.createToDoItem(newToDoName); 
+    const handleKeyPress = (key, newTodoName)=>{
+        if(key === 'Enter'){
+            handleSubmit(newTodoName);
+        }
+    }
+
+    const handleSubmit = (newToDoName)=>{
+        const trimmedToDo = newToDoName !== null && newToDoName !== undefined ? newToDoName.trim() : null;
+        if(trimmedToDo){
+            props.createToDoItem(trimmedToDo); 
             setNewToDoName('');
         }
     }
@@ -21,8 +28,9 @@ export default function CreateItemForm(props){
                 <Grid container>
                     <Grid item xs={3}/>
                     <Grid item xs={6} align="center">
-                        <TextField value={newToDoName} style={{width:'100%', marginBottom:10}} id="standard-basic" label="New to-do " variant="standard" onChange={(event)=>{handleChange(event)}}/>
-                        <Button variant='outlined' onClick={()=>{handleClick(newToDoName)}}>Add</Button>
+                        <TextField value={newToDoName} style={{width:'100%', marginBottom:10}} id="standard-basic" label="Enter your todo" variant="standard" 
+                        onChange={(event)=>{handleChange(event)}} onKeyDown={(event)=>{handleKeyPress(event.key, newToDoName)}}/>
+                        <Button variant='outlined' onClick={()=>{handleSubmit(newToDoName)}}>Add</Button>
                     </Grid>
                 <Grid item xs={3}/>
                 </Grid>
