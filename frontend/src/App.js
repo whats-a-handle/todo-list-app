@@ -14,8 +14,8 @@ export default function App() {
       position : 0, 
     };
 
-    if(todoItemsOrderedList.length > 0){
-      newToDo.position = todoItemsOrderedList[todoItemsOrderedList.length-1].position+1//used for positioning
+    if(Object.values(todoItems).length > 0){
+      newToDo.position = Object.values(todoItems).length
     }
     setTodoItems((todoItems) => ({...todoItems, [itemName] : newToDo}));
   };
@@ -36,6 +36,7 @@ export default function App() {
   };
 
   const sortItems = (items)=>{
+    console.log(items)
     return items.sort((a, b) => a.position - b.position);
   }
 
