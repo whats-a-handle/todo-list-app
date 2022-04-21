@@ -24,7 +24,7 @@ export default function TodoCard(props) {
   return (
     <Card
       sx={{
-        width: '100%', minHeight: 130, minWidth: 130, maxHeight: '100%', boxShadow: 4,
+        width: '80%', minHeight: '10%', maxWidth: 336, minWidth: '50%', maxHeight: '100%', boxShadow: 4,
       }}
       onMouseEnter={showHideCardActions}
       onMouseLeave={showHideCardActions}

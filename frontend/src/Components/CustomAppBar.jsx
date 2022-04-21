@@ -13,7 +13,7 @@ import SearchBox from './SearchBox';
 
 export default function NewCustomAppBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, marginBottom: 1 }}>
       <AppBar position="static">
         <Toolbar style={{ padding: 5 }}>
           <IconButton
@@ -51,7 +51,6 @@ export default function NewCustomAppBar() {
               <AccountCircleIcon />
             </IconButton>
           </Box>
-
         </Toolbar>
       </AppBar>
     </Box>
