@@ -1,6 +1,4 @@
-html {
-   background: -webkit-linear-gradient(90deg, hsla(194, 80%, 64%, 1) 0%, hsla(283, 33%, 46%, 1) 100%);
-   background-attachment: fixed; /*edit*/
-
-  }
+body{
+  margin:0;
+}
 

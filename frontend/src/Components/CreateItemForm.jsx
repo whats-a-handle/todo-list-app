@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Button, Container, Grid, TextField,
-} from '@mui/material';
+import { TextField, InputAdornment, IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function CreateItemForm(props) {
   const { createTodoItem } = props;
@@ -28,28 +27,29 @@ export default function CreateItemForm(props) {
   };
 
   return (
-    <Container>
-      <Grid container>
-        <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={3} />
-            <Grid item xs={6} align="center">
-              <TextField
-                value={newToDoName}
-                style={{ width: '100%', marginBottom: 10 }}
-                id="standard-basic"
-                label="Enter your todo"
-                variant="standard"
-                onChange={(event) => { handleChange(event); }}
-                onKeyDown={(event) => { handleKeyPress(event.key, newToDoName); }}
-              />
-              <Button variant="outlined" onClick={() => { handleSubmit(newToDoName); }}>Add</Button>
-            </Grid>
-            <Grid item xs={3} />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Container>
+    <TextField
+      value={newToDoName}
+      style={{ width: '100%' }}
+      id="standard-basic"
+      placeholder="Enter your todo"
+      variant="outlined"
+      onChange={(event) => { handleChange(event); }}
+      onKeyDown={(event) => { handleKeyPress(event.key, newToDoName); }}
+      InputProps={{
+        style: { backgroundColor: 'white' },
+        sx: {
+          boxShadow: 4,
+          borderRadius: 3,
+        },
+        endAdornment: (
+          <InputAdornment position="end" onClick={() => { handleSubmit(newToDoName); }}>
+            <IconButton>
+              <AddIcon />
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
+    />
   );
 }
 

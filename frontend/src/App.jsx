@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Container, Grid } from '@mui/material';
-import ToDoList from './Components/ToDoList';
-import CreateItemForm from './Components/CreateItemForm';
 import './App.css';
+import HomePage from './Components/HomePage';
+import CustomAppBar from './Components/CustomAppBar';
 
 export default function App() {
   const [todoItems, setTodoItems] = useState({});
@@ -66,34 +66,9 @@ export default function App() {
   }, [todoItems]);
 
   return (
-    <Container>
-      <Grid container>
-        <Grid item xs={12} style={{ marginTop: ('5%') }}>
-          <Grid container>
-            <Grid item xs={2} />
-            <Grid item xs={8} style={{ backgroundColor: 'white' }}>
-              <CreateItemForm createTodoItem={createTodoItem} />
-            </Grid>
-            <Grid item xs={2} />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={2} />
-            <Grid item xs={8} style={{ backgroundColor: 'white' }}>
-              <ToDoList
-                markTodoItem={markTodoItem}
-                renameTodoItem={renameTodoItem}
-                deleteTodoItem={deleteTodoItem}
-                moveItem={moveItem}
-              >
-                {todoItemsOrderedList}
-              </ToDoList>
-            </Grid>
-            <Grid item xs={2} />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Container>
+    <>
+      <CustomAppBar />
+      <HomePage />
+    </>
   );
 }
