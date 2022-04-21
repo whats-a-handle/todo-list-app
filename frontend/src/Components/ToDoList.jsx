@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid } from '@mui/material';
 import TodoCard from './TodoCard';
 
-function TodoList() {
+export default function TodoList() {
   const items = [<TodoCard title="title 1" isCompleted />,
     <TodoCard title="title 2" isCompleted />, <TodoCard title="title 3" isCompleted />, <TodoCard title="title 4" isCompleted />];
   return (
@@ -15,5 +15,3 @@ function TodoList() {
     </Grid>
   );
 }
-
-export default TodoList;
