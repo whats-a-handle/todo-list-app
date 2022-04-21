@@ -31,7 +31,7 @@ export default function NewCustomAppBar() {
             </Typography>
           </Box>
           <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexGrow: 1, paddingRight: 1 }}>
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: '70%' }}>
               <SearchBox />
             </Box>
           </Box>

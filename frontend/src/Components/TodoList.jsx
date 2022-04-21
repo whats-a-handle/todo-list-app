@@ -1,22 +1,39 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-// import TodoCard from './TodoCard';
+import TodoCard from './TodoCard';
+
+const initialTodoItemsState = {
+  todo: [],
+  inProgress: [],
+  done: [],
+};
 
 export default function TodoList() {
-  const todoColumn = [];
-  const inProgressColumn = [];
-  const doneColumn = [];
+  // eslint-disable-next-line no-unused-vars
+  const [todoItems, setTodoItems] = useState(initialTodoItemsState);
 
   const renderTodoCards = (items) => {
-    let gridItems = [];
+    let todoCards = [];
     if (items !== null && items !== undefined) {
-      gridItems = items.map((item) => (
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-          {item}
-        </Grid>
-      ));
+      todoCards = items.map((item) => {
+        const {
+          title, description, isCompleted, dueDate, column,
+        } = item;
+        return (
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <TodoCard
+              title={title}
+              description={description}
+              isCompleted={isCompleted}
+              dueDate={dueDate}
+              column={column}
+            />
+          </Grid>
+        );
+      });
     }
-    return gridItems;
+    return todoCards;
   };
   return (
     <Box
@@ -28,14 +45,25 @@ export default function TodoList() {
         paddingBottom: '20px',
       }}
     >
-      <Grid container item xs={12} align="center" justifyContent="center" sx={{ minHeight: '80vh' }}>
+      <Grid
+        container
+        item
+        xs={12}
+        align="center"
+        justifyContent="center"
+      >
         <Grid
           container
           item
           xs={4}
           rowSpacing={1}
           sx={{
-            borderRadius: 3, backgroundColor: 'rgb(246, 247, 248)', paddingBottom: '10px', marginLeft: 1, marginRight: 1, boxShadow: 1,
+            borderRadius: 3,
+            backgroundColor: 'rgb(246, 247, 248)',
+            paddingBottom: '10px',
+            marginLeft: 1,
+            marginRight: 1,
+            boxShadow: 1,
           }}
         >
           <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
@@ -43,7 +71,7 @@ export default function TodoList() {
               Todo
             </Typography>
           </Grid>
-          {renderTodoCards(todoColumn)}
+          {renderTodoCards(todoItems.todo)}
         </Grid>
         <Grid
           container
@@ -51,7 +79,12 @@ export default function TodoList() {
           xs={4}
           rowSpacing={1}
           sx={{
-            borderRadius: 3, backgroundColor: 'rgb(246, 247, 248)', paddingBottom: '10px', marginLeft: 1, marginRight: 1, boxShadow: 1,
+            borderRadius: 3,
+            backgroundColor: 'rgb(246, 247, 248)',
+            paddingBottom: '10px',
+            marginLeft: 1,
+            marginRight: 1,
+            boxShadow: 1,
           }}
         >
           <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
@@ -59,7 +92,7 @@ export default function TodoList() {
               In-progress
             </Typography>
           </Grid>
-          {renderTodoCards(inProgressColumn)}
+          {renderTodoCards(todoItems.inProgress)}
         </Grid>
         <Grid container item xs={1} />
         <Grid
@@ -68,7 +101,12 @@ export default function TodoList() {
           xs={2}
           rowSpacing={1}
           sx={{
-            borderRadius: 3, backgroundColor: 'rgb(246, 247, 248)', paddingBottom: '10px', boxShadow: 1, marginLeft: 1, marginRight: 1,
+            borderRadius: 3,
+            backgroundColor: 'rgb(246, 247, 248)',
+            paddingBottom: '10px',
+            boxShadow: 1,
+            marginLeft: 1,
+            marginRight: 1,
           }}
         >
           <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
@@ -76,7 +114,7 @@ export default function TodoList() {
               Done!
             </Typography>
           </Grid>
-          {renderTodoCards(doneColumn)}
+          {renderTodoCards(todoItems.done)}
         </Grid>
       </Grid>
     </Box>
