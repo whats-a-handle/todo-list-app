@@ -1,15 +1,23 @@
 import * as React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import TodoCard from './TodoCard';
+// import TodoCard from './TodoCard';
 
 export default function TodoList() {
-  const todoColumn = [<TodoCard title="title 1" isCompleted={false} column="todo" />,
-    <TodoCard title="title 2" isCompleted={false} column="todo" />, <TodoCard title="title 3" isCompleted={false} column="todo" />, <TodoCard title="title 4" isCompleted={false} column="todo" />];
-  const inProgressColumn = [<TodoCard title="title 1" isCompleted={false} column="in_progress" />,
-    <TodoCard title="title 2" isCompleted={false} column="in_progress" />, <TodoCard title="title 3" isCompleted={false} column="in_progress" />, <TodoCard title="title 4" isCompleted={false} column="in_progress" />];
-  const doneColumn = [<TodoCard title="title 1" isCompleted column="done" />,
-    <TodoCard title="title 2" isCompleted column="done" />, <TodoCard title="title 3" isCompleted column="done" />, <TodoCard title="title 4" isCompleted column="done" />];
+  const todoColumn = [];
+  const inProgressColumn = [];
+  const doneColumn = [];
 
+  const renderTodoCards = (items) => {
+    let gridItems = [];
+    if (items !== null && items !== undefined) {
+      gridItems = items.map((item) => (
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          {item}
+        </Grid>
+      ));
+    }
+    return gridItems;
+  };
   return (
     <Box
       sx={{
@@ -20,7 +28,7 @@ export default function TodoList() {
         paddingBottom: '20px',
       }}
     >
-      <Grid container item xs={12} align="center" justifyContent="center">
+      <Grid container item xs={12} align="center" justifyContent="center" sx={{ minHeight: '80vh' }}>
         <Grid
           container
           item
@@ -35,11 +43,7 @@ export default function TodoList() {
               Todo
             </Typography>
           </Grid>
-          {todoColumn.map((item) => (
-            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              {item}
-            </Grid>
-          ))}
+          {renderTodoCards(todoColumn)}
         </Grid>
         <Grid
           container
@@ -55,11 +59,7 @@ export default function TodoList() {
               In-progress
             </Typography>
           </Grid>
-          {inProgressColumn.map((item) => (
-            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              {item}
-            </Grid>
-          ))}
+          {renderTodoCards(inProgressColumn)}
         </Grid>
         <Grid container item xs={1} />
         <Grid
@@ -76,11 +76,7 @@ export default function TodoList() {
               Done!
             </Typography>
           </Grid>
-          {doneColumn.map((item) => (
-            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              {item}
-            </Grid>
-          ))}
+          {renderTodoCards(doneColumn)}
         </Grid>
       </Grid>
     </Box>
