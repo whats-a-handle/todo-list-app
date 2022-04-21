@@ -14,7 +14,7 @@ const todoCheckbox = (isCompleted) => (isCompleted === true
 
 export default function TodoCard(props) {
   const {
-    title, description, isCompleted, dueDate,
+    title, description, isCompleted, dueDate, column,
   } = props;
   const [isHovered, setIsHovered] = useState(false);
 
@@ -24,16 +24,13 @@ export default function TodoCard(props) {
   return (
     <Card
       sx={{
-        width: '80%', minHeight: '10%', maxWidth: 336, minWidth: '50%', maxHeight: '100%', boxShadow: 4,
+        width: '90%', minHeight: '5%', maxWidth: '336px', minWidth: '50%', maxHeight: '336px', boxShadow: 4,
       }}
       onMouseEnter={showHideCardActions}
       onMouseLeave={showHideCardActions}
     >
       <CardContent>
         <Box sx={{ display: 'flex' }}>
-          <IconButton sx={{ display: 'flex', flexGrow: 0 }}>
-            {todoCheckbox(isCompleted)}
-          </IconButton>
           <Typography
             variant="h6"
             component="div"
@@ -54,6 +51,9 @@ export default function TodoCard(props) {
         </Box>
       </CardContent>
       <CardActions>
+        <IconButton sx={{ display: column !== 'todo' && isHovered ? 'inline' : 'none', flexGrow: 0 }}>
+          {todoCheckbox(isCompleted)}
+        </IconButton>
         <IconButton style={{ color: 'red', display: isHovered ? 'inline' : 'none' }}>
           <DeleteIcon />
         </IconButton>
@@ -71,5 +71,6 @@ TodoCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   isCompleted: PropTypes.bool.isRequired,
+  column: PropTypes.string.isRequired,
   dueDate: PropTypes.string,
 };
