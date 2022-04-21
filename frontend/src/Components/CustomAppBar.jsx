@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import ShareIcon from '@mui/icons-material/Share';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SearchIcon from '@mui/icons-material/Search';
 import SearchBox from './SearchBox';
 
 export default function NewCustomAppBar() {
@@ -24,16 +25,20 @@ export default function NewCustomAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" style={{ padding: 10 }}>
-            TodoLister
-          </Typography>
-          <Box sx={{ flexGrow: 1, paddingRight: 1 }}>
+          <Box sx={{ display: 'flex', flexGrow: { xs: 3, sm: 0 } }}>
+            <Typography variant="h6" component="div" style={{ padding: 10 }}>
+              TodoLister
+            </Typography>
+          </Box>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexGrow: 1, paddingRight: 1 }}>
             <Box sx={{ width: '100%' }}>
               <SearchBox />
             </Box>
-
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+            <IconButton color="inherit">
+              <SearchIcon />
+            </IconButton>
             <IconButton color="inherit">
               <ShareIcon />
             </IconButton>
