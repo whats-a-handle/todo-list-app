@@ -1,6 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
-import TodoList from './TodoList';
+// import TodoList from './TodoList';
 
 export default function HomePage() {
   return (
@@ -19,7 +19,7 @@ export default function HomePage() {
             maxWidth: '80%',
           }}
         >
-          <TodoList />
+          {/* <TodoList /> */}
         </Grid>
       </Grid>
     </Container>
