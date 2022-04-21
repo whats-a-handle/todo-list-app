@@ -1,6 +1,5 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
-import TodoCard from './TodoCard';
 
 export default function HomePage() {
   return (
@@ -19,7 +18,6 @@ export default function HomePage() {
             maxWidth: '90%',
           }}
         />
-        <TodoCard />
       </Grid>
     </Container>
   );
