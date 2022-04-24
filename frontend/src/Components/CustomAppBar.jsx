@@ -13,25 +13,25 @@ import SearchBox from './SearchBox';
 
 export default function NewCustomAppBar() {
   return (
-    <Box sx={{ flexGrow: 1, marginBottom: 1 }}>
+    <Box sx={{ flexGrow: 1, marginBottom: '1rem' }}>
       <AppBar position="static">
-        <Toolbar style={{ padding: 5 }}>
+        <Toolbar style={{ padding: '0.2rem' }}>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ ml: 2, mr: 2 }}
+            sx={{ ml: '1rem', mr: '1rem' }}
           >
             <MenuIcon />
           </IconButton>
           <Box sx={{ display: 'flex', flexGrow: { xs: 3, sm: 0 } }}>
-            <Typography variant="h6" component="div" style={{ padding: 10 }}>
+            <Typography variant="h6" component="div" style={{ padding: '1rem' }}>
               TodoLister
             </Typography>
           </Box>
-          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexGrow: 1, paddingRight: 1 }}>
-            <Box sx={{ width: '70%' }}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexGrow: 1, paddingRight: '.5rem' }}>
+            <Box sx={{ width: '100%' }}>
               <SearchBox />
             </Box>
           </Box>

@@ -4,9 +4,16 @@ import { Box, Grid, Typography } from '@mui/material';
 import TodoCard from './TodoCard';
 
 const initialTodoItemsState = {
-  todo: [],
-  inProgress: [],
-  done: [],
+  todo: [{
+    title: 'Clean your room',
+    description: 'Wash linens, clothes, and floor, rugs etc',
+    isCompleted: false,
+  }],
+  done: [{
+    title: 'Title Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    isCompleted: true,
+  }],
 };
 
 export default function TodoList() {
@@ -18,7 +25,7 @@ export default function TodoList() {
     if (items !== null && items !== undefined) {
       todoCards = items.map((item) => {
         const {
-          title, description, isCompleted, dueDate, column,
+          title, description, isCompleted,
         } = item;
         return (
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -26,8 +33,6 @@ export default function TodoList() {
               title={title}
               description={description}
               isCompleted={isCompleted}
-              dueDate={dueDate}
-              column={column}
             />
           </Grid>
         );
@@ -41,8 +46,8 @@ export default function TodoList() {
         maxHeight: '100%',
         maxWidth: '100%',
         width: '100%',
-        paddingTop: '20px',
-        paddingBottom: '20px',
+        paddingTop: '2%',
+        paddingBottom: '2%',
       }}
     >
       <Grid
@@ -50,19 +55,22 @@ export default function TodoList() {
         item
         xs={12}
         align="center"
-        justifyContent="center"
+        justifyContent="space-around"
       >
         <Grid
           container
           item
-          xs={4}
+          xs={5.5}
+          sm={5}
+          md={5}
+          lg={5}
+          xl={5}
           rowSpacing={1}
           sx={{
             borderRadius: 3,
             backgroundColor: 'rgb(246, 247, 248)',
-            paddingBottom: '10px',
-            marginLeft: 1,
-            marginRight: 1,
+            paddingBottom: '1.5%',
+            marginBottom: '1%',
             boxShadow: 1,
           }}
         >
@@ -76,37 +84,18 @@ export default function TodoList() {
         <Grid
           container
           item
-          xs={4}
+          xs={5.5}
+          sm={5}
+          md={5}
+          lg={5}
+          xl={5}
           rowSpacing={1}
           sx={{
             borderRadius: 3,
             backgroundColor: 'rgb(246, 247, 248)',
-            paddingBottom: '10px',
-            marginLeft: 1,
-            marginRight: 1,
+            paddingBottom: '1.5%',
+            marginBottom: '1%',
             boxShadow: 1,
-          }}
-        >
-          <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
-            <Typography>
-              In-progress
-            </Typography>
-          </Grid>
-          {renderTodoCards(todoItems.inProgress)}
-        </Grid>
-        <Grid container item xs={1} />
-        <Grid
-          container
-          item
-          xs={2}
-          rowSpacing={1}
-          sx={{
-            borderRadius: 3,
-            backgroundColor: 'rgb(246, 247, 248)',
-            paddingBottom: '10px',
-            boxShadow: 1,
-            marginLeft: 1,
-            marginRight: 1,
           }}
         >
           <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>

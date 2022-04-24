@@ -13,21 +13,6 @@ export default function CreateItemForm() {
     setNewTodoName(event.target.value);
   };
 
-  /* const handleSubmit = (itemName) => {
-    const trimmedItemName = itemName !== null && itemName !== undefined
-      ? itemName.trim() : null;
-    if (trimmedItemName) {
-      createTodoItem(trimmedItemName);
-      setNewTodoName('');
-    }
-  }; */
-
-  /* const handleKeyPress = (key, newTodoName) => {
-    if (key === 'Enter') {
-      handleSubmit(newTodoName);
-    }
-  }; */
-
   return (
     <Container>
       <Grid
@@ -37,24 +22,20 @@ export default function CreateItemForm() {
         }}
       >
         <Grid container item xs={12}>
-          <Box sx={{ padding: 1 }}>
+          <Box sx={{ padding: '2%', width: '100%' }}>
             <TextField
               placeholder="Title"
               variant="standard"
+              style={{ width: '100%', borderBottom: '1px solid lightgray' }}
               InputProps={{
-                style: { backgroundColor: 'transparent' },
+                style: { backgroundColor: 'transparent', width: '100%' },
                 disableUnderline: true,
-                sx: {
-                  boxShadow: 0,
-                  border: 'none',
-                  outline: 'none',
-                },
               }}
             />
           </Box>
         </Grid>
         <Grid container item xs={12}>
-          <Box sx={{ padding: 1, width: '100%' }}>
+          <Box sx={{ padding: '2%', width: '100%' }}>
             <TextField
               multiline
               maxRows={3}
@@ -67,11 +48,6 @@ export default function CreateItemForm() {
               InputProps={{
                 style: { backgroundColor: 'transparent' },
                 disableUnderline: true,
-                sx: {
-                  boxShadow: 0,
-                  border: 'none',
-                  outline: 'none',
-                },
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton>
