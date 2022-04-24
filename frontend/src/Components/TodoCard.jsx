@@ -2,56 +2,65 @@ import React, { useState } from 'react';
 import {
   Typography, Paper, IconButton, Box,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import PropTypes from 'prop-types';
-
-const todoCheckbox = (isCompleted) => (isCompleted === true
-  ? <CheckBoxIcon style={{ color: 'green' }} />
-  : <CheckBoxOutlineBlankIcon />
-);
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import DeleteOutline from '@mui/icons-material/DeleteOutline';
 
 export default function TodoCard(props) {
   const {
-    title, description, isCompleted,
+    title, description, isCompleted, deleteTodoItem, id,
   } = props;
-  const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const showHideCardActions = () => {
-    setIsHovered(!isHovered);
+  const expandOrShrink = () => {
+    setIsExpanded(!isExpanded);
   };
+
+  const renderExpandIcon = () => (isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />);
+  const todoCheckbox = () => (isCompleted === true
+    ? <CheckBoxIcon style={{ color: 'green' }} />
+    : <CheckBoxOutlineBlankIcon />
+  );
   return (
     <Paper
       style={{
         width: '90%',
         maxWidth: '90%',
         boxShadow: 4,
-        minHeight: '200px',
+        minHeight: '10%',
         display: 'flex',
       }}
-      onMouseEnter={showHideCardActions}
-      onMouseLeave={showHideCardActions}
     >
       <Box style={{
         display: 'flex', padding: '0.5rem', paddingRight: 0, flexDirection: 'column', justifyContent: 'space-between',
       }}
       >
-        <IconButton style={{ display: 'flex' }}>
-          {todoCheckbox(isCompleted)}
-        </IconButton>
-        <IconButton style={{ color: 'red', display: isHovered ? 'flex' : 'none' }}>
-          <DeleteIcon />
+        <Box style={{ display: 'flex', flexDirection: 'column' }}>
+          <IconButton>
+            {todoCheckbox()}
+          </IconButton>
+          <IconButton onClick={() => { deleteTodoItem(id); }}>
+            <DeleteOutline />
+          </IconButton>
+        </Box>
+        <IconButton style={{ display: 'flex' }} onClick={expandOrShrink}>
+          {renderExpandIcon()}
         </IconButton>
       </Box>
-      <Box style={{ padding: '.8rem', maxHeight: '80%', maxWidth: '90%' }}>
+      <Box style={{
+        padding: '.8rem', maxHeight: '80%', maxWidth: '90%',
+      }}
+      >
         <Typography
           style={{ fontSize: '1.1rem', marginBottom: '5px' }}
           sx={{
-            overflow: isHovered ? 'scroll' : 'hidden',
-            textOverflow: isHovered ? 'clip' : 'ellipsis',
+            overflow: isExpanded ? 'scroll' : 'hidden',
+            textOverflow: isExpanded ? 'clip' : 'ellipsis',
             display: '-webkit-box',
-            WebkitLineClamp: isHovered ? 'none' : '2',
+            WebkitLineClamp: isExpanded ? 'none' : '2',
             WebkitBoxOrient: 'vertical',
           }}
         >
@@ -59,10 +68,10 @@ export default function TodoCard(props) {
         </Typography>
         <Typography
           sx={{
-            overflow: isHovered ? 'scroll' : 'hidden',
-            textOverflow: isHovered ? 'clip' : 'ellipsis',
+            overflow: isExpanded ? 'scroll' : 'hidden',
+            textOverflow: isExpanded ? 'clip' : 'ellipsis',
             display: '-webkit-box',
-            WebkitLineClamp: isHovered ? 'none' : '5',
+            WebkitLineClamp: isExpanded ? 'none' : '5',
             WebkitBoxOrient: 'vertical',
           }}
           style={{ maxWidth: '100%', maxHeight: '100%', fontSize: '0.9rem' }}
@@ -82,4 +91,6 @@ TodoCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   isCompleted: PropTypes.bool.isRequired,
+  deleteTodoItem: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };

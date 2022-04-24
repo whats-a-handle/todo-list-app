@@ -1,31 +1,84 @@
+/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import TodoCard from './TodoCard';
+import CreateItemForm from './CreateItemForm';
 
 const initialTodoItemsState = {
-  todo: [{
-    title: 'Clean your room',
-    description: 'Wash linens, clothes, and floor, rugs etc',
-    isCompleted: false,
-  }],
-  done: [{
-    title: 'Title Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    isCompleted: true,
-  }],
 };
-
 export default function TodoList() {
-  // eslint-disable-next-line no-unused-vars
   const [todoItems, setTodoItems] = useState(initialTodoItemsState);
+  const [allTimeTodoCount, setAllTimeTodoCount] = useState(0);
 
+  // eslint-disable-next-line max-len
+  const inProgressTodos = () => Object.values(todoItems).filter((item) => item.isCompleted === false);
+  const completedTodos = () => Object.values(todoItems).filter((item) => item.isCompleted === true);
+  const createTodoItem = (args) => {
+    const { title, description } = args;
+    const newTodo = {
+      title,
+      description,
+      isCompleted: false,
+      id: allTimeTodoCount.toString(),
+      position: Object.values(todoItems).length,
+    };
+    setTodoItems((prevTodoItems) => ({ ...prevTodoItems, [newTodo.id]: newTodo }));
+    setAllTimeTodoCount(allTimeTodoCount + 1);
+  };
+  const markTodoItem = (itemName) => {
+    const newIsCompleted = !todoItems[itemName].isCompleted;
+    setTodoItems((prevTodoItems) => ({
+      ...prevTodoItems,
+      [itemName]: {
+        ...prevTodoItems[itemName],
+        isCompleted: newIsCompleted,
+      },
+    }));
+  };
+
+  const deleteTodoItem = (id) => {
+    const newToDoItems = { ...todoItems };
+    delete newToDoItems[id];
+    setTodoItems(newToDoItems);
+  };
+
+  const moveItem = (itemName, dragPosition) => {
+    setTodoItems((prevTodoItems) => (
+      {
+        ...prevTodoItems,
+        [itemName]: {
+          ...prevTodoItems[itemName],
+          position: dragPosition,
+        },
+      }));
+  };
+
+  const sortItems = (items) => items.sort((a, b) => a.position - b.position);
+
+  const renameTodoItem = (oldItemName, newItemName) => {
+    if (!(newItemName in todoItems)) {
+      const updatedItems = { ...todoItems };
+      const renamedItem = { ...todoItems[oldItemName] };
+      delete updatedItems[oldItemName];
+      renamedItem.itemName = newItemName;
+      setTodoItems({ ...updatedItems, [newItemName]: { ...renamedItem } });
+    }
+  };
+
+  React.useEffect(() => {
+    console.log(JSON.stringify(todoItems));
+  }, [todoItems]);
+  /* useEffect(() => {
+    setTodoItemsOrderedList(sortItems([...Object.values(todoItems)]));
+  }, [todoItems]);
+*/
   const renderTodoCards = (items) => {
     let todoCards = [];
     if (items !== null && items !== undefined) {
       todoCards = items.map((item) => {
         const {
-          title, description, isCompleted,
+          title, description, isCompleted, id,
         } = item;
         return (
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -33,6 +86,8 @@ export default function TodoList() {
               title={title}
               description={description}
               isCompleted={isCompleted}
+              deleteTodoItem={deleteTodoItem}
+              id={id}
             />
           </Grid>
         );
@@ -41,71 +96,76 @@ export default function TodoList() {
     return todoCards;
   };
   return (
-    <Box
-      sx={{
-        maxHeight: '100%',
-        maxWidth: '100%',
-        width: '100%',
-        paddingTop: '2%',
-        paddingBottom: '2%',
-      }}
-    >
-      <Grid
-        container
-        item
-        xs={12}
-        align="center"
-        justifyContent="space-around"
+    <>
+      <Box style={{ width: '60%', marginBottom: '.5rem' }}>
+        <CreateItemForm createTodoItem={createTodoItem} />
+      </Box>
+      <Box
+        sx={{
+          maxHeight: '100%',
+          maxWidth: '100%',
+          width: '100%',
+          paddingTop: '2%',
+          paddingBottom: '2%',
+        }}
       >
         <Grid
           container
           item
-          xs={5.5}
-          sm={5}
-          md={5}
-          lg={5}
-          xl={5}
-          rowSpacing={1}
-          sx={{
-            borderRadius: 3,
-            backgroundColor: 'rgb(246, 247, 248)',
-            paddingBottom: '1.5%',
-            marginBottom: '1%',
-            boxShadow: 1,
-          }}
+          xs={12}
+          align="center"
+          justifyContent="space-around"
         >
-          <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
-            <Typography>
-              Todo
-            </Typography>
+          <Grid
+            container
+            item
+            xs={5.5}
+            sm={5}
+            md={5}
+            lg={5}
+            xl={5}
+            rowSpacing={1}
+            sx={{
+              borderRadius: 3,
+              backgroundColor: 'rgb(246, 247, 248)',
+              paddingBottom: '1.5%',
+              marginBottom: '1%',
+              boxShadow: 1,
+            }}
+          >
+            <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
+              <Typography>
+                Todo
+              </Typography>
+            </Grid>
+            {renderTodoCards(inProgressTodos())}
           </Grid>
-          {renderTodoCards(todoItems.todo)}
-        </Grid>
-        <Grid
-          container
-          item
-          xs={5.5}
-          sm={5}
-          md={5}
-          lg={5}
-          xl={5}
-          rowSpacing={1}
-          sx={{
-            borderRadius: 3,
-            backgroundColor: 'rgb(246, 247, 248)',
-            paddingBottom: '1.5%',
-            marginBottom: '1%',
-            boxShadow: 1,
-          }}
-        >
-          <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
-            <Typography>
-              Done!
-            </Typography>
+          <Grid
+            container
+            item
+            xs={5.5}
+            sm={5}
+            md={5}
+            lg={5}
+            xl={5}
+            rowSpacing={1}
+            sx={{
+              borderRadius: 3,
+              backgroundColor: 'rgb(246, 247, 248)',
+              paddingBottom: '1.5%',
+              marginBottom: '1%',
+              boxShadow: 1,
+            }}
+          >
+            <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
+              <Typography>
+                Done!
+              </Typography>
+            </Grid>
+            {renderTodoCards(completedTodos())}
           </Grid>
-          {renderTodoCards(todoItems.done)}
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 }

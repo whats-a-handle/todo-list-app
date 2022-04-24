@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
   TextField, InputAdornment, IconButton, Grid, Container, Box,
@@ -5,14 +6,18 @@ import {
 // import PropTypes from 'prop-types';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function CreateItemForm() {
-  // const { createTodoItem } = props;
+const initialState = {
+  title: '',
+  description: '',
+};
 
-  const [newToDoName, setNewTodoName] = useState('');
-  const handleChange = (event) => {
-    setNewTodoName(event.target.value);
+export default function CreateItemForm(props) {
+  const { createTodoItem } = props;
+  const [newTodoItem, setNewTodoItem] = useState(initialState);
+
+  const handleChange = (event, property) => {
+    setNewTodoItem((prevValue) => ({ ...prevValue, [property]: event.target.value }));
   };
-
   return (
     <Container>
       <Grid
@@ -26,7 +31,9 @@ export default function CreateItemForm() {
             <TextField
               placeholder="Title"
               variant="standard"
+              value={newTodoItem.title}
               style={{ width: '100%', borderBottom: '1px solid lightgray' }}
+              onChange={(event) => { handleChange(event, 'title'); }}
               InputProps={{
                 style: { backgroundColor: 'transparent', width: '100%' },
                 disableUnderline: true,
@@ -39,18 +46,18 @@ export default function CreateItemForm() {
             <TextField
               multiline
               maxRows={3}
-              value={newToDoName}
+              value={newTodoItem.description}
               style={{ width: '100%' }}
               id="standard-basic"
               placeholder="Enter your todo"
               variant="standard"
-              onChange={(event) => { handleChange(event); }}
+              onChange={(event) => { handleChange(event, 'description'); }}
               InputProps={{
                 style: { backgroundColor: 'transparent' },
                 disableUnderline: true,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton>
+                    <IconButton onClick={() => createTodoItem(newTodoItem)}>
                       <AddIcon />
                     </IconButton>
                   </InputAdornment>
