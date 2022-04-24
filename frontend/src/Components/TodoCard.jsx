@@ -11,7 +11,7 @@ import DeleteOutline from '@mui/icons-material/DeleteOutline';
 
 export default function TodoCard(props) {
   const {
-    title, description, isCompleted, deleteTodoItem, id,
+    title, description, isCompleted, deleteTodoItem, id, markTodoItem,
   } = props;
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -38,7 +38,7 @@ export default function TodoCard(props) {
         display: 'flex', padding: '0.5rem', paddingRight: 0, flexDirection: 'column', justifyContent: 'space-between',
       }}
       >
-        <Box style={{ display: 'flex', flexDirection: 'column' }}>
+        <Box style={{ display: 'flex', flexDirection: 'column' }} onClick={() => { markTodoItem(id); }}>
           <IconButton>
             {todoCheckbox()}
           </IconButton>
@@ -93,4 +93,5 @@ TodoCard.propTypes = {
   isCompleted: PropTypes.bool.isRequired,
   deleteTodoItem: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  markTodoItem: PropTypes.func.isRequired,
 };

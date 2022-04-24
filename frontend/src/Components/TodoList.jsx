@@ -26,13 +26,12 @@ export default function TodoList() {
     setTodoItems((prevTodoItems) => ({ ...prevTodoItems, [newTodo.id]: newTodo }));
     setAllTimeTodoCount(allTimeTodoCount + 1);
   };
-  const markTodoItem = (itemName) => {
-    const newIsCompleted = !todoItems[itemName].isCompleted;
+  const markTodoItem = (id) => {
     setTodoItems((prevTodoItems) => ({
       ...prevTodoItems,
-      [itemName]: {
-        ...prevTodoItems[itemName],
-        isCompleted: newIsCompleted,
+      [id]: {
+        ...prevTodoItems[id],
+        isCompleted: !prevTodoItems[id].isCompleted,
       },
     }));
   };
@@ -87,6 +86,7 @@ export default function TodoList() {
               description={description}
               isCompleted={isCompleted}
               deleteTodoItem={deleteTodoItem}
+              markTodoItem={markTodoItem}
               id={id}
             />
           </Grid>
