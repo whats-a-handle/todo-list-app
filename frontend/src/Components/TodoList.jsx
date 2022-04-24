@@ -5,10 +5,8 @@ import { Box, Grid, Typography } from '@mui/material';
 import TodoCard from './TodoCard';
 import CreateItemForm from './CreateItemForm';
 
-const initialTodoItemsState = {
-};
 export default function TodoList() {
-  const [todoItems, setTodoItems] = useState(initialTodoItemsState);
+  const [todoItems, setTodoItems] = useState({});
   const [allTimeTodoCount, setAllTimeTodoCount] = useState(0);
 
   // eslint-disable-next-line max-len
@@ -42,13 +40,13 @@ export default function TodoList() {
     setTodoItems(newToDoItems);
   };
 
-  const moveItem = (itemName, dragPosition) => {
+  const moveItem = (id, position) => {
     setTodoItems((prevTodoItems) => (
       {
         ...prevTodoItems,
-        [itemName]: {
-          ...prevTodoItems[itemName],
-          position: dragPosition,
+        [id]: {
+          ...prevTodoItems[id],
+          position,
         },
       }));
   };
@@ -68,16 +66,18 @@ export default function TodoList() {
   React.useEffect(() => {
     console.log(JSON.stringify(todoItems));
   }, [todoItems]);
-  /* useEffect(() => {
+  /*
+   useEffect(() => {
     setTodoItemsOrderedList(sortItems([...Object.values(todoItems)]));
-  }, [todoItems]);
-*/
+  }, [todoItems]); */
   const renderTodoCards = (items) => {
+    const todoItemsForSorting = [...items];
     let todoCards = [];
-    if (items !== null && items !== undefined) {
-      todoCards = items.map((item) => {
+    sortItems(todoItemsForSorting);
+    if (todoItemsForSorting !== null && todoItemsForSorting !== undefined) {
+      todoCards = todoItemsForSorting.map((item) => {
         const {
-          title, description, isCompleted, id,
+          title, description, isCompleted, id, position,
         } = item;
         return (
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -88,6 +88,7 @@ export default function TodoList() {
               deleteTodoItem={deleteTodoItem}
               markTodoItem={markTodoItem}
               id={id}
+              position={position}
             />
           </Grid>
         );

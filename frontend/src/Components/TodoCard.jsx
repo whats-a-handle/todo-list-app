@@ -38,8 +38,8 @@ export default function TodoCard(props) {
         display: 'flex', padding: '0.5rem', paddingRight: 0, flexDirection: 'column', justifyContent: 'space-between',
       }}
       >
-        <Box style={{ display: 'flex', flexDirection: 'column' }} onClick={() => { markTodoItem(id); }}>
-          <IconButton>
+        <Box style={{ display: 'flex', flexDirection: 'column' }}>
+          <IconButton onClick={() => { markTodoItem(id); }}>
             {todoCheckbox()}
           </IconButton>
           <IconButton onClick={() => { deleteTodoItem(id); }}>
