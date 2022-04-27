@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import TodoCard from './TodoCard';
 import CreateItemForm from './CreateItemForm';
+import TodoCard from './TodoCard';
 
 export default function TodoList() {
   const [todoItems, setTodoItems] = useState({});
@@ -53,46 +53,28 @@ export default function TodoList() {
 
   const sortItems = (items) => items.sort((a, b) => a.position - b.position);
 
-  const renameTodoItem = (oldItemName, newItemName) => {
-    if (!(newItemName in todoItems)) {
-      const updatedItems = { ...todoItems };
-      const renamedItem = { ...todoItems[oldItemName] };
-      delete updatedItems[oldItemName];
-      renamedItem.itemName = newItemName;
-      setTodoItems({ ...updatedItems, [newItemName]: { ...renamedItem } });
-    }
+  const updateTodoItem = (item) => {
+    setTodoItems((prevItems) => ({ ...prevItems, [item.id]: { ...item } }));
   };
 
   React.useEffect(() => {
-    console.log(JSON.stringify(todoItems));
+    console.log(`Items Updated: ${JSON.stringify(todoItems)}`);
   }, [todoItems]);
-  /*
-   useEffect(() => {
-    setTodoItemsOrderedList(sortItems([...Object.values(todoItems)]));
-  }, [todoItems]); */
   const renderTodoCards = (items) => {
     const todoItemsForSorting = [...items];
     let todoCards = [];
     sortItems(todoItemsForSorting);
     if (todoItemsForSorting !== null && todoItemsForSorting !== undefined) {
-      todoCards = todoItemsForSorting.map((item) => {
-        const {
-          title, description, isCompleted, id, position,
-        } = item;
-        return (
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <TodoCard
-              title={title}
-              description={description}
-              isCompleted={isCompleted}
-              deleteTodoItem={deleteTodoItem}
-              markTodoItem={markTodoItem}
-              id={id}
-              position={position}
-            />
-          </Grid>
-        );
-      });
+      todoCards = todoItemsForSorting.map((item) => (
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          <TodoCard
+            item={item}
+            deleteTodoItem={deleteTodoItem}
+            markTodoItem={markTodoItem}
+            updateTodoItem={updateTodoItem}
+          />
+        </Grid>
+      ));
     }
     return todoCards;
   };
