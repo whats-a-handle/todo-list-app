@@ -1,9 +1,45 @@
-/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import { useState } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import CreateItemForm from './CreateItemForm';
 import TodoCard from './TodoCard';
+import CreateItemForm from './CreateItemForm';
+
+const columnStyles = {
+  sx: {
+    borderRadius: 3,
+    backgroundColor: 'rgb(246, 247, 248)',
+    paddingBottom: '1.5%',
+    marginBottom: '1%',
+    boxShadow: 1,
+  },
+};
+
+const columnContainerStyles = {
+  style: {
+    maxHeight: '100%',
+    maxWidth: '100%',
+    width: '100%',
+    paddingTop: '2%',
+    paddingBottom: '2%',
+
+  },
+};
+
+const formContainerStyles = {
+  style: {
+    width: '60%', marginBottom: '.5rem',
+  },
+};
+
+const columnNameStyles = {
+  style: {
+    paddingLeft: '1.6rem',
+  },
+};
+
+const todoCardItemStyle = {
+  style: { width: '100%' },
+};
 
 export default function TodoList() {
   const [todoItems, setTodoItems] = useState({});
@@ -19,7 +55,7 @@ export default function TodoList() {
       description,
       isCompleted: false,
       id: allTimeTodoCount.toString(),
-      position: Object.values(todoItems).length,
+      index: Object.values(todoItems).length,
     };
     setTodoItems((prevTodoItems) => ({ ...prevTodoItems, [newTodo.id]: newTodo }));
     setAllTimeTodoCount(allTimeTodoCount + 1);
@@ -40,18 +76,7 @@ export default function TodoList() {
     setTodoItems(newToDoItems);
   };
 
-  const moveItem = (id, position) => {
-    setTodoItems((prevTodoItems) => (
-      {
-        ...prevTodoItems,
-        [id]: {
-          ...prevTodoItems[id],
-          position,
-        },
-      }));
-  };
-
-  const sortItems = (items) => items.sort((a, b) => a.position - b.position);
+  const sortItems = (items) => items.sort((a, b) => a.index - b.index);
 
   const updateTodoItem = (item) => {
     setTodoItems((prevItems) => ({ ...prevItems, [item.id]: { ...item } }));
@@ -60,13 +85,14 @@ export default function TodoList() {
   React.useEffect(() => {
     console.log(`Items Updated: ${JSON.stringify(todoItems)}`);
   }, [todoItems]);
+
   const renderTodoCards = (items) => {
     const todoItemsForSorting = [...items];
     let todoCards = [];
     sortItems(todoItemsForSorting);
     if (todoItemsForSorting !== null && todoItemsForSorting !== undefined) {
       todoCards = todoItemsForSorting.map((item) => (
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+        <Grid item key={item.id} style={todoCardItemStyle.style}>
           <TodoCard
             item={item}
             deleteTodoItem={deleteTodoItem}
@@ -80,67 +106,21 @@ export default function TodoList() {
   };
   return (
     <>
-      <Box style={{ width: '60%', marginBottom: '.5rem' }}>
+      <Box style={formContainerStyles.style}>
         <CreateItemForm createTodoItem={createTodoItem} />
       </Box>
-      <Box
-        sx={{
-          maxHeight: '100%',
-          maxWidth: '100%',
-          width: '100%',
-          paddingTop: '2%',
-          paddingBottom: '2%',
-        }}
-      >
-        <Grid
-          container
-          item
-          xs={12}
-          align="center"
-          justifyContent="space-around"
-        >
-          <Grid
-            container
-            item
-            xs={5.5}
-            sm={5}
-            md={5}
-            lg={5}
-            xl={5}
-            rowSpacing={1}
-            sx={{
-              borderRadius: 3,
-              backgroundColor: 'rgb(246, 247, 248)',
-              paddingBottom: '1.5%',
-              marginBottom: '1%',
-              boxShadow: 1,
-            }}
-          >
-            <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
+      <Box style={columnContainerStyles.style}>
+        <Grid container item xs={12} align="center" justifyContent="space-around" style={columnContainerStyles.style}>
+          <Grid container item xs={5.5} sm={5} rowSpacing={1} sx={columnStyles.sx}>
+            <Grid container item xs={12} style={columnNameStyles.style}>
               <Typography>
                 Todo
               </Typography>
             </Grid>
             {renderTodoCards(inProgressTodos())}
           </Grid>
-          <Grid
-            container
-            item
-            xs={5.5}
-            sm={5}
-            md={5}
-            lg={5}
-            xl={5}
-            rowSpacing={1}
-            sx={{
-              borderRadius: 3,
-              backgroundColor: 'rgb(246, 247, 248)',
-              paddingBottom: '1.5%',
-              marginBottom: '1%',
-              boxShadow: 1,
-            }}
-          >
-            <Grid container item xs={12} align="left" sx={{ paddingLeft: 4 }}>
+          <Grid container item xs={5.5} sm={5} rowSpacing={1} sx={columnStyles.sx}>
+            <Grid container item xs={12} style={columnNameStyles.style}>
               <Typography>
                 Done!
               </Typography>

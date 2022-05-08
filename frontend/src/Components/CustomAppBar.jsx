@@ -11,31 +11,94 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import SearchBox from './SearchBox';
 
+const outerBoxStyle = {
+  sx: {
+    flexGrow: 1, marginBottom: '1rem',
+  },
+};
+const toolbarStyle = {
+  style: {
+    padding: '0.2rem',
+  },
+};
+
+const menuButtonStyle = {
+  sx: {
+    ml: '1rem', mr: '1rem',
+  },
+};
+
+const titleBoxStyle = {
+  sx: {
+    display: 'flex', flexGrow: { xs: 3, sm: 0 },
+  },
+};
+
+const titleStyle = {
+  style: {
+    padding: '1rem',
+  },
+};
+
+const searchBoxContainerStyle = {
+  sx: {
+    display: { xs: 'none', sm: 'flex' }, flexGrow: 1, paddingRight: '.5rem',
+  },
+};
+const searchBoxStyle = {
+  sx: {
+    width: '100%',
+  },
+};
+
+const mobileButtonStyle = {
+  sx: {
+    flexGrow: 1,
+    display: { xs: 'flex', sm: 'none' },
+  },
+};
+const shareButtonContainerStyle = {
+  sx: {
+    flexGrow: 1,
+    display: { xs: 'none', sm: 'flex' },
+  },
+};
+const shareButtonStyle = {
+  sx: {
+    color: 'inherit',
+  },
+};
+
+const accountButtonContainerStyle = {
+  sx: {
+    paddingRight: 2, display: { xs: 'none', sm: 'flex' },
+  },
+};
 export default function NewCustomAppBar() {
   return (
-    <Box sx={{ flexGrow: 1, marginBottom: '1rem' }}>
+    <Box sx={outerBoxStyle.sx}>
       <AppBar position="static">
-        <Toolbar style={{ padding: '0.2rem' }}>
+        <Toolbar style={toolbarStyle.style}>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ ml: '1rem', mr: '1rem' }}
+            sx={menuButtonStyle.sx}
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{ display: 'flex', flexGrow: { xs: 3, sm: 0 } }}>
-            <Typography variant="h6" component="div" style={{ padding: '1rem' }}>
+          <Box sx={titleBoxStyle.sx}>
+            <Typography variant="h6" component="div" style={titleStyle.style}>
               TodoLister
             </Typography>
           </Box>
-          <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexGrow: 1, paddingRight: '.5rem' }}>
-            <Box sx={{ width: '100%' }}>
+          <Box sx={searchBoxContainerStyle.sx}>
+            <Box sx={searchBoxStyle.sx}>
               <SearchBox />
             </Box>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+          <Box sx={mobileButtonStyle.sx}>
             <IconButton color="inherit">
               <SearchIcon />
             </IconButton>
@@ -43,10 +106,10 @@ export default function NewCustomAppBar() {
               <ShareIcon />
             </IconButton>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
-            <Button sx={{ color: 'inherit' }}>Share</Button>
+          <Box sx={shareButtonContainerStyle.sx}>
+            <Button sx={shareButtonStyle.sx}>Share</Button>
           </Box>
-          <Box sx={{ paddingRight: 2, display: { xs: 'none', sm: 'flex' } }}>
+          <Box sx={accountButtonContainerStyle.sx}>
             <IconButton color="inherit">
               <AccountCircleIcon />
             </IconButton>

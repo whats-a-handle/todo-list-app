@@ -2,19 +2,32 @@ import React from 'react';
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
+const textFieldStyles = {
+  style: {
+    width: '100%',
+  },
+};
+
+const textFieldInputPropStyles = {
+  style: {
+    backgroundColor: '#f6f7f8',
+  },
+  sx: {
+    boxShadow: 4,
+    borderRadius: 3,
+  },
+};
+
 export default function SearchBox() {
   return (
     <TextField
-      style={{ width: '100%' }}
+      style={textFieldStyles.style}
       id="standard-basic"
       placeholder="Find a to-do"
       variant="outlined"
       InputProps={{
-        style: { backgroundColor: '#f6f7f8' },
-        sx: {
-          boxShadow: 4,
-          borderRadius: 3,
-        },
+        style: textFieldInputPropStyles.style,
+        sx: textFieldInputPropStyles.sx,
         endAdornment: (
           <InputAdornment position="end">
             <IconButton>
