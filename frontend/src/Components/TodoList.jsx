@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import TodoCard from './TodoCard';
 import CreateItemForm from './CreateItemForm';
@@ -82,7 +81,7 @@ export default function TodoList() {
     setTodoItems((prevItems) => ({ ...prevItems, [item.id]: { ...item } }));
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log(`Items Updated: ${JSON.stringify(todoItems)}`);
   }, [todoItems]);
 
