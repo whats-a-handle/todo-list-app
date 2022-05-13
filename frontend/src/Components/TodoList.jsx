@@ -86,21 +86,17 @@ export default function TodoList() {
   }, [todoItems]);
 
   const renderTodoCards = (items) => {
-    const todoItemsForSorting = [...items];
-    let todoCards = [];
-    sortItems(todoItemsForSorting);
-    if (todoItemsForSorting !== null && todoItemsForSorting !== undefined) {
-      todoCards = todoItemsForSorting.map((item) => (
-        <Grid item key={item.id} style={todoCardItemStyle.style}>
-          <TodoCard
-            item={item}
-            deleteTodoItem={deleteTodoItem}
-            markTodoItem={markTodoItem}
-            updateTodoItem={updateTodoItem}
-          />
-        </Grid>
-      ));
-    }
+    const sortedTodoItems = sortItems([...items]);
+    const todoCards = (sortedTodoItems || []).map((item) => (
+      <Grid item key={item.id} style={todoCardItemStyle.style}>
+        <TodoCard
+          item={item}
+          deleteTodoItem={deleteTodoItem}
+          markTodoItem={markTodoItem}
+          updateTodoItem={updateTodoItem}
+        />
+      </Grid>
+    ));
     return todoCards;
   };
   return (
